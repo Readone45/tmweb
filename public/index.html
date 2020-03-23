@@ -147,8 +147,7 @@ img::before {
         <!--Grid column-->
           <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
             <br/>
-              <h4 class="dark-grey-text" id="aa">
-                Alan Walker, K-391, Tungevaag, Mangoo - PLAY (Alan Walker x Niya Remix)
+              <h4 class="dark-grey-text" id="title-song">
               </h4>
               <br/>
               <ul class="list-inline" id="ull">
@@ -255,7 +254,7 @@ img::before {
   </script>
   <script>
     var views = document.querySelector("#aaa");
-    var name = document.querySelector("#aa");
+    var titlesong = document.querySelector("#title-song");
     var download = document.querySelector("#d");
     var image = document.querySelector("#i");
     var topaudio = document.querySelector("#topaudio");
@@ -276,7 +275,7 @@ img::before {
         return b.view - a.view;
       });
       data = popmusik[0];
-      name.innerHTML = data.name;
+      titlesong.innerHTML = data.name;
       views.innerHTML = data.view + " views";
       download.setAttribute("href", data.url);
 
