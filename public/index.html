@@ -153,8 +153,7 @@ img::before {
               <br/>
               <ul class="list-inline" id="ull">
                 <li>
-                  <audio controls>
-                      <source type="audio/mpeg" id="audiooo">
+                  <audio preload="none" controls id="topaudio">
                         Your browser does not support the audio tag.
                   </audio>
                 </li>
@@ -259,11 +258,12 @@ img::before {
     var name = document.querySelector("#aa");
     var download = document.querySelector("#d");
     var image = document.querySelector("#i");
-    var audioo = document.querySelector("#audiooo")
+    var topaudio = document.querySelector("#topaudio");
+    var source = document.createElement('source');
     var awal,akhir,total = 0;
     var json = {};
     var popmusik = {};
-    var data = {}
+    var data = {};
 
     // Untuk elements
     fetch('https://teammusic-tw.firebaseio.com/upload/text.json')
@@ -287,7 +287,9 @@ img::before {
           img = data.img;
       }
       image.setAttribute("src", img);
-      audioo.setAttribute("src", data.url);
+      source.setAttribute("src", data.url);
+      source.setAttribute("type", "audio/mpeg");
+      topaudio.appendChild(source);
     });
 
     // Stay updated With new TeamMusic APK
