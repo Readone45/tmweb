@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TeamMusic</title>
+<style type="text/css">
+	.hidden{
+		display: none;
+	}
+
+	ul {
+		list-style: none;
+	}
+
+	.bg-blue{
+		background-color: #719ce7;
+	}
+
+	.bg-orange{
+		background-color: orange;
+	}
+
+</style>
+</head>
+<body>
+<h2 id="judul"></h2>
+<h3 id="pesan"></h3>
+<div id="download"></div>
+<div id="populer" class="bg-blue">
+	<h4>Musik Populer</h4>
+	<ul id="listpop" class="horizontal">
+	</ul>
+</div>
+<div id="listmusik" class="bg-orange">
+	<h4>Judul Musik</h4>
+</div>
+<input type="button" id="btnLoadMore" onclick="loadMore()" value="Load More"/>
+
+</body>
+<script type="text/javascript">
+	var download = document.getElementById("download");
+	var judul = document.getElementById("judul");
+	var update = document.getElementById("update");
+	var pesan = document.getElementById("pesan");
+
+	fetch('https://teammusic-tw.firebaseio.com/update/version/-Lj06YCr3nTQAidRfSmZ.json')
+	.then((response) => {
+	    return response.json();
+	})
+	.then((data) => {
+		download.innerHTML = '<a href="'+data.url+'">Download TeamMusic '+data.versionName+'</a>';
+		judul.innerHTML = data.title;
+		pesan.innerHTML = data.msg;
+		//update.innerHTML = data.tmp;
+	});
+</script>
+
+<script type="text/javascript">
+	var listmusik = document.querySelector('#listmusik');
+	var uli =  document.createElement('ul');
+	var btnload = document.querySelector('#btnLoadMore');
+	var listpopuler = document.querySelector('#populer');
+	var listpop = document.querySelector('#listpop');
+	var awal,akhir,total = 0;
+	var json = {};
+	var popmusik = {};
+
+	fetch('https://teammusic-tw.firebaseio.com/upload/text.json')
+	.then((response) => {
+	    return response.json();
+	})
+	.then((data) => {
+		json = Object.values(data);
+		popmusik = Object.values(data).sort(function(a,b){
+			return b.view - a.view;
+		});
+		tampil();
+		populerMusik(1);
+	});
+
+	function tampil(){
+		awal = 0;
+		akhir = 10;
+		var c = json.slice(awal,akhir);
+		
+		for(i in c){
+			let img;
+			if(c[i].img === undefined){
+				img = 'https://img.icons8.com/bubbles/2x/music.png';
+			}else{
+				img = c[i].img;
+			}
+			var liname = document.createElement('li');
+			var ul2 =  document.createElement('ul');
+			var li2 = document.createElement('li');
+			//liname.className = 'hidden';
+			liname.textContent = 'Name: ' + c[i].name;
+			li2.innerHTML = '<img src="' + img + '" width="30%">';
+			li2.innerHTML += '<br><audio preload="none" controls><source src="' + c[i].url + '" type="audio/mpeg"> Your Browser does not support the audio tag.</audio>';
+			li2.innerHTML += '<br>' + '[ <a href="' + c[i].url + '">Download Disini</a> ]<hr>';
+			ul2.appendChild(li2);
+			liname.appendChild(ul2);
+			uli.appendChild(liname);
+			total = total + 1;
+		}
+		listmusik.appendChild(uli);	
+	}
+
+	function loadMore(){
+		awal = awal + 10;
+		akhir = akhir + 10;
+		var c = json.slice(awal,akhir);
+
+		for(i in c){
+			let img;
+			if(c[i].img === undefined){
+				img = 'https://img.icons8.com/bubbles/2x/music.png';
+			}else{
+				img = c[i].img;
+			}
+			var liname = document.createElement('li');
+			var ul2 =  document.createElement('ul');
+			var li2 = document.createElement('li');
+			//liname.className = 'hidden';
+			liname.textContent = 'Name: ' + c[i].name;
+			li2.innerHTML = '<img src="' + img + '" width="30%">';
+			li2.innerHTML += '<br><audio preload="none" controls><source src="' + c[i].url + '" type="audio/mpeg"> Your Browser does not support the audio tag.</audio>';
+			li2.innerHTML += '<br>' + '[ <a href="' + c[i].url + '">Download Disini</a> ]<hr>';
+			ul2.appendChild(li2);
+			liname.appendChild(ul2);
+			uli.appendChild(liname);
+			total = total + 1;
+		}
+		listmusik.appendChild(uli);
+
+		if(total === json.length){
+			btnload.classList.add("hidden");
+		}
+					
+	}
+
+	function populerMusik(batas){
+		var batas = batas;
+		var c = popmusik.slice(0,batas);
+		for (i in c){
+			let img;
+			if(c[i].img === undefined){
+				img = 'https://img.icons8.com/bubbles/2x/music.png';
+			}else{
+				img = c[i].img;
+			}
+			var li = document.createElement('li');
+			li.innerHTML = '<img src="' + img + '" width="25%">';
+			li.innerHTML += "<br>Title : "+c[i].name;
+			li.innerHTML += "<br>View : "+c[i].view;
+			li.innerHTML += '<br><audio preload="none" controls><source src="' + c[i].url + '" type="audio/mpeg"> Your Browser does not support the audio tag.</audio>';
+			listpop.appendChild(li);
+		}
+
+		
+	}
+
+</script>
+</html>
