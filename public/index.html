@@ -16,8 +16,6 @@
   <!-- Your custom styles (optional) -->
   <link href="css/style.min.css" rel="stylesheet">
 
-    <!-- Kode untuk mengambil musik paling populer -->
-
 <style>
 img::before {
   content: none;
@@ -147,14 +145,12 @@ img::before {
         <!--Grid column-->
           <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
             <br/>
-              <h4 class="dark-grey-text" id="aa">
-                Alan Walker, K-391, Tungevaag, Mangoo - PLAY (Alan Walker x Niya Remix)
+              <h4 class="dark-grey-text" id="title-song">
               </h4>
               <br/>
               <ul class="list-inline" id="ull">
                 <li>
-                  <audio controls>
-                      <source type="audio/mpeg" id="audiooo">
+                  <audio preload="none" controls id="topaudio">
                         Your browser does not support the audio tag.
                   </audio>
                 </li>
@@ -205,7 +201,7 @@ img::before {
           <div class="modal-body black-text" id="txt">
           </div>
           <div class="modal-footer">
-            <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            <a type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</a>
             <a id="tmmusicdownload" target="_blank" class="btn btn-primary btn-md">Download Now
             </a>
           </div>
@@ -256,14 +252,15 @@ img::before {
   </script>
   <script>
     var views = document.querySelector("#aaa");
-    var name = document.querySelector("#aa");
+    var titlesong = document.querySelector("#title-song");
     var download = document.querySelector("#d");
     var image = document.querySelector("#i");
-    var audioo = document.querySelector("#audiooo")
+    var topaudio = document.querySelector("#topaudio");
+    var source = document.createElement('source');
     var awal,akhir,total = 0;
     var json = {};
     var popmusik = {};
-    var data = {}
+    var data = {};
 
     // Untuk elements
     fetch('https://teammusic-tw.firebaseio.com/upload/text.json')
@@ -276,7 +273,7 @@ img::before {
         return b.view - a.view;
       });
       data = popmusik[0];
-      name.innerHTML = data.name;
+      titlesong.innerHTML = data.name;
       views.innerHTML = data.view + " views";
       download.setAttribute("href", data.url);
 
@@ -287,7 +284,9 @@ img::before {
           img = data.img;
       }
       image.setAttribute("src", img);
-      audioo.setAttribute("src", data.url);
+      source.setAttribute("src", data.url);
+      source.setAttribute("type", "audio/mpeg");
+      topaudio.appendChild(source);
     });
 
     // Stay updated With new TeamMusic APK
