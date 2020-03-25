@@ -34,7 +34,7 @@ function tampil(){
       img = c[i].img;
     }
 
-    card(img, c[i].view, c[i].uid, c[i].name, total);
+    card(img, c[i].view, c[i].uid, c[i].name, total, c[i].url);
 
     console.log(c[i]);
 
@@ -43,7 +43,7 @@ function tampil(){
 }
 
 
-function card(img, view, uid, name, total){
+function card(img, view, uid, name, total, url){
   var tes = document.createElement('div');
     tes.setAttribute('class','col-md-4 wow fadeInLeft');
    tes.innerHTML =  '<div class="card-group" id="grp"><div class="card card-personal mb-4" style="width:22rem;">'+
@@ -59,7 +59,7 @@ function card(img, view, uid, name, total){
         '<li class="list-inline-item pt-auto">'+
           '<a class="btn btn-primary btn-action ml-auto mr-2 btn-sm waves-effect waves-light" onclick="playMusic(' + total + ')"><i class="fas fa-play pl-1"></i></a></li>'+
         '<li class="list-inline-item">'+
-          '<a class="btn btn-primary btn-action ml-auto mr-4 btn-sm waves-effect waves-light"><i class="fas fa-download pl-1"></i></a></li>'+
+          '<a class="btn btn-primary btn-action ml-auto mr-4 btn-sm waves-effect waves-light" target="_blank" href="' + url + '"><i class="fas fa-download pl-1"></i></a></li>'+
       '</ul>'+
 
       '<!--Card content-->'+
@@ -103,6 +103,7 @@ function loadMore(){
   }
 }
 
+// Custom Music Player
 var audio = document.querySelector("#audio");
 var source = document.createElement("source");
 var musicname = document.querySelector("#mscname");
@@ -126,7 +127,6 @@ function playMusic(num) {
   play_aud()
 }
 
-// Custom Music Player
 document.addEventListener("DOMContentLoaded", function() { startplayer(); }, false);
 var player;
 
