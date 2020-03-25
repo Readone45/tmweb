@@ -71,61 +71,17 @@
         <section class="pt-5 mt-3 pb-3">
 
           <!--Grid row-->
-          <div class="row">
+          <div class="row" id="list-group">
 
             <!--Grid column-->
             <div class="col-md-12">
 
-              <!--Card group-->
-              <div class="card-group" id="grp">
-
-                <!--Card-->
-                <div class="card card-personal mb-4" style="width:22rem;">
-
-                  <!--Card image-->
-                  <div class="view">
-                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(26).jpg" alt="Card image cap">
-                    <a href="#!">
-                      <div class="mask rgba-white-slight"></div>
-                    </a>
-                  </div>
-                  <!--Card image-->
-                  <ul align="right">
-                    <li class="list-inline-item pt-auto">
-                      <a class="btn btn-primary btn-action ml-auto mr-2 btn-sm waves-effect waves-light"><i class="fas fa-play pl-1"></i></a></li>
-                    <li class="list-inline-item">
-                      <a class="btn btn-primary btn-action ml-auto mr-4 btn-sm waves-effect waves-light"><i class="fas fa-download pl-1"></i></a></li>
-                  </ul>
-
-                  <!--Card content-->
-                  <div class="card-body">
-                    <!--Title-->
-                    <a>
-                      <h4 class="card-title">Music Name</h4>
-                    </a>
-                  </div>
-
-                  <div class="rounded-bottom blue-gradient text-center pt-3 mt-auto">
-                    <ul class="list-unstyled list-inline font-small">
-                      <li class="list-inline-item pr-2 white-text"><i class="fas fa-eye pr-1"></i>127</li>
-                      <li class="list-inline-item pr-2"><a href="#" class="white-text"><i
-                            class="fas fa-comments pr-1"></i>3</a></li>
-
-                      <li class="list-inline-item"><a href="#" class="white-text"><i class="fas fa-heart pr-1"> </i>3</a></li>
-                      <li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-user pr-1">
-                      </i>TeamWorks DEV</a></li>
-                    </ul>
-                  </div>
-                  <!--Card content-->
-
-                </div>
-                <!--Card-->
-
-              </div>
-              <!--Card group-->
+             
 
             </div>
             <!--Grid column-->
+
+
 
           </div>
           <!--Grid row-->
@@ -148,8 +104,9 @@
 
     </script>
     <!-- TeamMusic Scrips -->
+   
     <script type="text/javascript">
-    	var download = document.getElementById("download");
+   /* 	var download = document.getElementById("download");
     	var judul = document.getElementById("judul");
     	var update = document.getElementById("update");
     	var pesan = document.getElementById("pesan");
@@ -163,7 +120,7 @@
     		judul.innerHTML = data.title;
     		pesan.innerHTML = data.msg;
     		//update.innerHTML = data.tmp;
-    	});
+    	}); */
     </script>
 
     <script type="text/javascript">
@@ -172,7 +129,7 @@
     	var btnload = document.querySelector('#btnLoadMore');
     	var listpopuler = document.querySelector('#populer');
     	var listpop = document.querySelector('#listpop');
-      var group = document.querySelector("#grp");
+      var group = document.querySelector("#list-group");
     	var awal,akhir,total = 0;
     	var json = {};
     	var popmusik = {};
@@ -187,7 +144,6 @@
     			return b.view - a.view;
     		});
     		tampil();
-    		populerMusik(1);
     	});
 
     	function tampil(){
@@ -202,66 +158,58 @@
     			} else {
     				img = c[i].img;
     			}
-          /*
-    			var liname = document.createElement('li');
-    			var ul2 =  document.createElement('ul');
-    			var li2 = document.createElement('li');
-    			//liname.className = 'hidden';
 
-    			liname.textContent = 'Name: ' + c[i].name;
-    			li2.innerHTML = '<img src="' + img + '" width="30%">';
-    			li2.innerHTML += '<br><audio preload="none" controls><source src="' + c[i].url + '" type="audio/mpeg"> Your Browser does not support the audio tag.</audio>';
-    			li2.innerHTML += '<br>' + '[ <a href="' + c[i].url + '">Download Disini</a> ]<hr>';
-    			ul2.appendChild(li2);
-    			liname.appendChild(ul2);
-    			uli.appendChild(liname);
-          */
-
-          group.innerHTML += '
-          <div class="card card-personal mb-4" style="width:22rem;">
-
-            <!--Card image-->
-            <div class="view">
-              <img class="card-img-top" src="' + img + '" alt="Card image cap">
-              <a href="#!">
-                <div class="mask rgba-white-slight"></div>
-              </a>
-            </div>
-            <!--Card image-->
-            <ul align="right">
-              <li class="list-inline-item pt-auto">
-                <a class="btn btn-primary btn-action ml-auto mr-2 btn-sm waves-effect waves-light"><i class="fas fa-play pl-1"></i></a></li>
-              <li class="list-inline-item">
-                <a class="btn btn-primary btn-action ml-auto mr-4 btn-sm waves-effect waves-light"><i class="fas fa-download pl-1"></i></a></li>
-            </ul>
-
-            <!--Card content-->
-            <div class="card-body">
-              <!--Title-->
-              <a>
-                <h4 class="card-title">' + c[i].name + '</h4>
-              </a>
-            </div>
-
-            <div class="rounded-bottom blue-gradient text-center pt-3 mt-auto">
-              <ul class="list-unstyled list-inline font-small">
-                <li class="list-inline-item pr-2 white-text"><i class="fas fa-eye pr-1"></i>' + c[i].view + '</li>
-                <li class="list-inline-item pr-2"><a href="#" class="white-text"><i
-                      class="fas fa-comments pr-1"></i>3</a></li>
-
-                <li class="list-inline-item"><a href="#" class="white-text"><i class="fas fa-heart pr-1"> </i>3</a></li>
-                <li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-user pr-1">
-                </i>' + c[i].uid + '</a></li>
-              </ul>
-            </div>
-            <!--Card content-->
-
-          </div>'
+          card(img,c[i].view,c[i].uid,c[i].name);
+        
 
     			total = total + 1;
     		}
-    		listmusik.appendChild(uli);
     	}
+
+
+      function card(img,view,uid,name){
+        var tes = document.createElement('div');
+          tes.setAttribute('class','col-md-4');
+         tes.innerHTML =  '<div class="card-group" id="grp"><div class="card card-personal mb-4" style="width:22rem;">'+
+            '<!--Card image-->'+
+            '<div class="view">'+
+              '<img class="card-img-top" src="' + img + '" alt="Card image cap">'+
+              '<a href="#!">'+
+                '<div class="mask rgba-white-slight"></div>'+
+              '</a>'+
+            '</div>'+
+            '<!--Card image-->'+
+            '<ul align="right">'+
+              '<li class="list-inline-item pt-auto">'+
+                '<a class="btn btn-primary btn-action ml-auto mr-2 btn-sm waves-effect waves-light"><i class="fas fa-play pl-1"></i></a></li>'+
+              '<li class="list-inline-item">'+
+                '<a class="btn btn-primary btn-action ml-auto mr-4 btn-sm waves-effect waves-light"><i class="fas fa-download pl-1"></i></a></li>'+
+            '</ul>'+
+
+            '<!--Card content-->'+
+            '<div class="card-body">'+
+             ' <!--Title-->'+
+              '<a>'+
+                '<h4 class="card-title">' + name + '</h4>'+
+              '</a>'+
+            '</div>'+
+
+            '<div class="rounded-bottom blue-gradient text-center pt-3 mt-auto">'+
+              '<ul class="list-unstyled list-inline font-small">'+
+                '<li class="list-inline-item pr-2 white-text"><i class="fas fa-eye pr-1"></i>' + view + '</li>'+
+                '<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-comments pr-1"></i>3</a></li>'+
+
+                '<li class="list-inline-item"><a href="#" class="white-text"><i class="fas fa-heart pr-1"> </i>3</a></li>'+
+                '<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-user pr-1"></i>' + uid + '</a></li>'+
+              '</ul>'+
+            '</div>'+
+            '<!--Card content-->'+
+
+          '</div></div>';
+          group.appendChild(tes);
+      }
+
+
 
     	function loadMore(){
     		awal = awal + 10;
