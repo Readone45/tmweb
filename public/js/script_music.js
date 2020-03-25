@@ -104,30 +104,33 @@ function loadMore(){
 }
 
 // Custom Music Player
-var audio = document.querySelector("#audio");
-var source = document.createElement("source");
 var musicname = document.querySelector("#mscname");
-
 var prog = document.querySelector("progress_");
 
 function stopDel() {
   botNavBar.setAttribute("style", "display: none;");
-  audio.removeChild(source);
-  pause_aud();
+  stop_aud();
+  document.getElementById("audio").remove();
 }
 
 function playMusic(num) {
-  botNavBar.setAttribute("style", "");
-
-  source.setAttribute("src", json[num].url);
-  source.setAttribute("type", "audio/mpeg");
-  source.setAttribute("id", "source-audio")
-  audio.appendChild(source);
-  musicname.innerHTML = json[num].name;
-  play_aud()
+  try {
+    document.getElementById("audio").remove();
+  }
+  catch(err) {
+    console.log(err);
+  }
+  finally {
+    console.log(json);
+    botNavBar.setAttribute("style", "");
+    botNavBar.innerHTML += '<audio preload="none" controls id="audio" style="display: none;"> <source src="' + json[num].url + '" type="audio/mpeg"/></audio>';
+    musicname.innerHTML = json[num].name;
+    startplayer();
+    play_aud()
+  }
 }
 
-document.addEventListener("DOMContentLoaded", function() { startplayer(); }, false);
+// document.addEventListener("DOMContentLoaded", function() { startplayer(); }, false);
 var player;
 
 function startplayer()
