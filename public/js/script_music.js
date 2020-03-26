@@ -104,32 +104,52 @@ function loadMore(){
 }
 
 // Custom Music Player
+// Getting elements using querySelector()
 var musicname = document.querySelector("#mscname");
 var prog = document.querySelector("progress_");
 
 function stopDel() {
+  // Cancel button
+  // Set bottom navbar invisible and stopping the audio
   botNavBar.setAttribute("style", "display: none;");
   stop_aud();
+
+  // Then delete the audio tag using document.getElementById('').remove()
   document.getElementById("audio").remove();
 }
 
+// This fuction will be triggered when the play button pressed (Inside the card)
+// Function call at : Line 60
 function playMusic(num) {
+  // Remove if there is player that is playing audio
   try {
     document.getElementById("audio").remove();
   }
   catch(err) {
+    // This will happened if theres no player is playing
     console.log(err);
   }
   finally {
     console.log(json);
+    musicname.innerHTML = json[num].name;
+    console.log(musicname);
     botNavBar.setAttribute("style", "");
     botNavBar.innerHTML += '<audio preload="none" controls id="audio" style="display: none;"> <source src="' + json[num].url + '" type="audio/mpeg"/></audio>';
-    musicname.innerHTML = json[num].name;
     startplayer();
     play_aud()
   }
 }
 
+function setloop() {
+  document.querySelector("#audio").loop = !document.querySelector("#audio").loop;
+  if(document.querySelector("#audio").loop) {
+    document.querySelector("#looptxt").innerHTML = "Loop (ON)";
+  } else {
+    document.querySelector("#looptxt").innerHTML = "Loop (OFF)";
+  }
+}
+
+// This code I copy pasted from online :v
 // document.addEventListener("DOMContentLoaded", function() { startplayer(); }, false);
 var player;
 
