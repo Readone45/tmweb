@@ -34,7 +34,7 @@ function tampil(){
       img = c[i].img;
     }
 
-    card(img, c[i].view, c[i].uid, c[i].name, total);
+    card(img, c[i].view, c[i].uid, c[i].name, total, c[i].url);
 
     console.log(c[i]);
 
@@ -43,7 +43,7 @@ function tampil(){
 }
 
 
-function card(img, view, uid, name, total){
+function card(img, view, uid, name, total, url){
   var tes = document.createElement('div');
     tes.setAttribute('class','col-md-4 wow fadeInLeft');
    tes.innerHTML =  '<div class="card-group" id="grp"><div class="card card-personal mb-4" style="width:22rem;">'+
@@ -59,7 +59,7 @@ function card(img, view, uid, name, total){
         '<li class="list-inline-item pt-auto">'+
           '<a class="btn btn-primary btn-action ml-auto mr-2 btn-sm waves-effect waves-light" onclick="playMusic(' + total + ')"><i class="fas fa-play pl-1"></i></a></li>'+
         '<li class="list-inline-item">'+
-          '<a class="btn btn-primary btn-action ml-auto mr-4 btn-sm waves-effect waves-light"><i class="fas fa-download pl-1"></i></a></li>'+
+          '<a class="btn btn-primary btn-action ml-auto mr-4 btn-sm waves-effect waves-light" target="_blank" href="' + url + '"><i class="fas fa-download pl-1"></i></a></li>'+
       '</ul>'+
 
       '<!--Card content-->'+
@@ -103,31 +103,54 @@ function loadMore(){
   }
 }
 
-var audio = document.querySelector("#audio");
-var source = document.createElement("source");
+// Custom Music Player
+// Getting elements using querySelector()
 var musicname = document.querySelector("#mscname");
-
 var prog = document.querySelector("progress_");
 
 function stopDel() {
+  // Cancel button
+  // Set bottom navbar invisible and stopping the audio
   botNavBar.setAttribute("style", "display: none;");
-  audio.removeChild(source);
-  pause_aud();
+  stop_aud();
+
+  // Then delete the audio tag using document.getElementById('').remove()
+  document.getElementById("audio").remove();
 }
 
+// This fuction will be triggered when the play button pressed (Inside the card)
+// Function call at : Line 60
 function playMusic(num) {
-  botNavBar.setAttribute("style", "");
-
-  source.setAttribute("src", json[num].url);
-  source.setAttribute("type", "audio/mpeg");
-  source.setAttribute("id", "source-audio")
-  audio.appendChild(source);
-  musicname.innerHTML = json[num].name;
-  play_aud()
+  // Remove if there is player that is playing audio
+  try {
+    document.getElementById("audio").remove();
+  }
+  catch(err) {
+    // This will happened if theres no player is playing
+    console.log(err);
+  }
+  finally {
+    console.log(json);
+    musicname.innerHTML = json[num].name;
+    console.log(musicname);
+    botNavBar.setAttribute("style", "");
+    botNavBar.innerHTML += '<audio preload="none" controls id="audio" style="display: none;"> <source src="' + json[num].url + '" type="audio/mpeg"/></audio>';
+    startplayer();
+    play_aud()
+  }
 }
 
-// Custom Music Player
-document.addEventListener("DOMContentLoaded", function() { startplayer(); }, false);
+function setloop() {
+  document.querySelector("#audio").loop = !document.querySelector("#audio").loop;
+  if(document.querySelector("#audio").loop) {
+    document.querySelector("#looptxt").innerHTML = "Loop (ON)";
+  } else {
+    document.querySelector("#looptxt").innerHTML = "Loop (OFF)";
+  }
+}
+
+// This code I copy pasted from online :v
+// document.addEventListener("DOMContentLoaded", function() { startplayer(); }, false);
 var player;
 
 function startplayer()

@@ -60,14 +60,12 @@
       </nav>
       <!-- Navbar -->
       <nav class="navbar fixed-bottom navbar-dark primary-color white-text" id="b-navbar" style="display: none;">
-          <h4 class="h4-responsive" id="mscname"><a class="navbar-brand"></a></h4>
-          <audio preload="none" controls id="audio" style="display: none;">
-                Your browser does not support the audio tag.
-          </audio>
+          <h4 class="h4-responsive"><a class="navbar-brand" id="mscname"></a></h4>
           <a onclick="pause_aud()">Pause</a>
           <a onclick="stop_aud()">Stop</a>
           <a onclick="play_aud()">Play</a>
           <a onclick="stopDel()">Cancel</a>
+          <a onclick="setloop()" id="looptxt">Loop (OFF)</a>
           <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="progress_"></div>
           </div>
