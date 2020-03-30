@@ -115,6 +115,7 @@ function loadMore(){
 // Getting elements using querySelector()
 var musicname = document.querySelector("#mscname");
 var prog = document.querySelector("progress_");
+var currentMusic;
 
 function stopDel() {
   // Cancel button
@@ -129,9 +130,11 @@ function stopDel() {
 // This fuction will be triggered when the play button pressed (Inside the card)
 // Function call at : Line 60
 function playMusic(num) {
+  currentMusic = num;
   // Remove if there is player that is playing audio
   try {
     document.getElementById("audio").remove();
+    document.getElementById("mscname").innerHTML = json[num].name;
   }
   catch(err) {
     // This will happened if theres no player is playing
@@ -160,6 +163,7 @@ function setloop() {
 // This code I copy pasted from online :v
 // window.onload = function() { document.getElementById("openModalLoading").remove(); };
 var player;
+var progressbar = document.querySelector("prog");
 
 function startplayer()
 {
@@ -173,6 +177,18 @@ function startplayer()
   player.ondurationchange = function() {
     console.log("Audio can be played!");
     document.getElementById("openModalLoading").remove();
+    document.getElementById("prog").setAttribute("aria-valuemax", player.duration);
+    // player.currentTime
+    // player.duration
+  }
+  player.ontimeupdate = function() {
+    document.getElementById("prog").setAttribute("aria-valuenow", player.currentTime);
+    document.getElementById("prog").setAttribute("style", "width :" + parseInt((player.currentTime / player.duration)*100) + "%;");
+  }
+  player.onended = function() {
+    if(!player.loop){
+      playMusic(currentMusic + 1);
+    }
   }
 }
 

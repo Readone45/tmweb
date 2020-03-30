@@ -20,8 +20,50 @@
       .modalDialog {position: fixed;font-family: Arial, Helvetica, sans-serif;top: 0;right: 0;bottom: 0;left: 0; background: rgba(0, 0, 0, 0.8);z-index: 99999;opacity:0; -webkit-transition: opacity 400ms ease-in; -moz-transition: opacity 400ms ease-in;transition: opacity 400ms ease-in; pointer-events: none;}  .modalDialog:target {opacity:1;pointer-events: auto;}  .modalDialog > div {width: 100%;position: relative;margin: 20% auto;}@-webkit-keyframes rotate-forever { 0% { -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg); } } @-moz-keyframes rotate-forever { 0% { -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg); } } @keyframes rotate-forever { 0% { -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg); } } .loading-spinner { -webkit-animation-duration: 0.75s; -moz-animation-duration: 0.75s; animation-duration: 0.75s; -webkit-animation-iteration-count: infinite; -moz-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-name: rotate-forever; -moz-animation-name: rotate-forever; animation-name: rotate-forever; -webkit-animation-timing-function: linear; -moz-animation-timing-function: linear; animation-timing-function: linear; height: 30px; width: 30px; border: 8px solid #ffffff; border-right-color: transparent; border-radius: 50%; display: inline-block; }.loading-spinner { position: absolute; top: 50%; right: 0; bottom: 0; left: 50%; margin: -15px 0 -15px;}
     </style>
     <style type="text/css">
+    /* Set Download icon to white */
     .fa-download {
       color: white;
+    }
+
+    /* Bottom Navbar  CSS */
+    .navbar_ {
+      background-color: #333;
+      overflow: hidden;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Style the links inside the navigation bar */
+    .navbar_ a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .navbar_ a:hover {
+      background-color: #47BDF7;
+      color: black;
+    }
+
+    /* Add a color to the active/current link */
+    .navbar_ a.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #prog {
+      height: 7px;
+      background-color: #F50057;;
+    }
+
+    #prog:hover {
+      height: 8px;
     }
     </style>
 
@@ -68,7 +110,7 @@
           -->
         </div>
       </nav>
-      <!-- Navbar -->
+      <!-- Navbar
       <nav class="navbar fixed-bottom navbar-dark primary-color white-text" id="b-navbar" style="display: none;">
           <h4 class="h4-responsive"><a class="navbar-brand" id="mscname"></a></h4>
           <a onclick="pause_aud()">Pause</a>
@@ -79,7 +121,7 @@
           <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="progress_"></div>
           </div>
-      </nav>
+      </nav>-->
 
     </header>
     <br/>
@@ -112,16 +154,22 @@
       </div>
     </main>
 
-    <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
-
-      <!--Call to action-->
-      <div class="pt-4">
-        <a class="btn btn-outline-white wow tada" target="_blank" data-toggle="modal" data-target="#exampleModalCenter"
-          role="button">Download TeamMusic Android
-          <i class="fas fa-download ml-2"></i>
-        </a>
+    <!-- Bottom NavBar -->
+    <div class="navbar_ blue z-depth-5 white-text list-inline" id="b-navbar">
+      <div id="prog" class="progress-bar z-depth-2" role="progressbar" style="width: 0%;" height="10px" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      <div class="row">
+        <marquee direction="right" scrollamount="5"><h4 class="h4-responsive p-3 m-1" id="mscname"></h4></marquee>
       </div>
-      <!--/.Call to action-->
+      <div class="row">
+        <div class="col"><a onclick="pause_aud()">Pause</a></div>
+        <div class="col"><a onclick="stop_aud()">Stop</a></div>
+        <div class="col"><a onclick="play_aud()">Play</a></div>
+        <div class="col"><a onclick="stopDel()">Cancel</a></div>
+        <div class="col"><a onclick="setloop()" id="looptxt">Loop (OFF)</a></div>
+      </div>
+    </div>
+
+    <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
 
       <!-- Modal -->
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
