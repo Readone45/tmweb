@@ -56,9 +56,9 @@ function card(img, view, uid, name, total, url){
     tes.setAttribute('class','col-md-4 wow fadeInLeft');
    tes.innerHTML =  '<div class="card-group" id="grp"><div class="card card-personal mb-4 wow fadeIn" style="width:22rem;">'+
       '<!--Card image-->'+
-      '<div class="view">'+
+      '<div class="view overlay zoom">'+
         '<img class="card-img-top" src="' + img + '" alt="Card image cap">'+
-        '<a href="#!">'+
+        '<a onclick="playMusic(' + total + ')">'+
           '<div class="mask rgba-white-slight"></div>'+
         '</a>'+
       '</div>'+
@@ -73,7 +73,7 @@ function card(img, view, uid, name, total, url){
       '<!--Card content-->'+
       '<div class="card-body">'+
        ' <!--Title-->'+
-        '<a>'+
+        '<a onclick="playMusic(' + total + ')">'+
           '<h4 class="card-title">' + name + '</h4>'+
         '</a>'+
       '</div>'+
