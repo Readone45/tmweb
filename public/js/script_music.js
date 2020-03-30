@@ -78,8 +78,6 @@ function card(img, view, uid, name, total, url){
       '<!--Card image-->'+
       '<ul align="right">'+
         '<li class="list-inline-item pt-auto">'+
-          '<a class="btn btn-action ml-auto mr-2 btn-sm waves-effect waves-light" onclick="playMusic(' + total + ')" style="background-color: #F50057;"><i class="fas fa-play pl-1"></i></a></li>'+
-        '<li class="list-inline-item">'+
           '<a class="btn btn-action ml-auto mr-4 btn-sm waves-effect waves-light" target="_blank" href="' + url + '" style="background-color: #F50057;"><i class="fas fa-download pl-1"></i></a></li>'+
       '</ul>'+
 
@@ -157,7 +155,7 @@ function playMusic(num) {
     console.log(json);
     musicname.innerHTML = json[num].name;
     console.log(musicname);
-    document.querySelector("b-navbar").setAttribute("style", "");
+    document.getElementById("b-navbar").setAttribute("style", "");
     botNavBar.innerHTML += '<audio preload="none" controls id="audio" style="display: none;"> <source src="' + json[num].url + '" type="audio/mpeg"/></audio>';
     startplayer();
     play_aud();
