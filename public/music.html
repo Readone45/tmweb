@@ -15,6 +15,16 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.min.css" rel="stylesheet">
 
+    <!-- Loading CSS -->
+    <style type="text/css">
+      .modalDialog {position: fixed;font-family: Arial, Helvetica, sans-serif;top: 0;right: 0;bottom: 0;left: 0; background: rgba(0, 0, 0, 0.8);z-index: 99999;opacity:0; -webkit-transition: opacity 400ms ease-in; -moz-transition: opacity 400ms ease-in;transition: opacity 400ms ease-in; pointer-events: none;}  .modalDialog:target {opacity:1;pointer-events: auto;}  .modalDialog > div {width: 100%;position: relative;margin: 20% auto;}@-webkit-keyframes rotate-forever { 0% { -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg); } } @-moz-keyframes rotate-forever { 0% { -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg); } } @keyframes rotate-forever { 0% { -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg); } } .loading-spinner { -webkit-animation-duration: 0.75s; -moz-animation-duration: 0.75s; animation-duration: 0.75s; -webkit-animation-iteration-count: infinite; -moz-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-name: rotate-forever; -moz-animation-name: rotate-forever; animation-name: rotate-forever; -webkit-animation-timing-function: linear; -moz-animation-timing-function: linear; animation-timing-function: linear; height: 30px; width: 30px; border: 8px solid #ffffff; border-right-color: transparent; border-radius: 50%; display: inline-block; }.loading-spinner { position: absolute; top: 50%; right: 0; bottom: 0; left: 50%; margin: -15px 0 -15px;}
+    </style>
+    <style type="text/css">
+    .fa-download {
+      color: white;
+    }
+    </style>
+
     <title>TeamMusic - Music</title>
   </head>
   <body>
@@ -82,7 +92,7 @@
         <section class="pt-5 mt-3 pb-3">
 
           <!--Grid row-->
-          <div class="row wow fadeInLeft" id="list-group">
+          <div class="row" id="list-group">
 
             <!--Grid column-->
             <div class="col-md-12">
@@ -92,7 +102,7 @@
 
           </div>
           <!--Grid row-->
-          <button class="btn aqua-gradient" id="btnLoadMore" onclick="loadMore()">load More</button>
+          <button class="btn white-text" id="btnLoadMore" onclick="loadMore()" style="background-color: #F50057;">load More</button>
           <br/>
           <br/>
           <br/>
@@ -101,6 +111,67 @@
 <!--Section: Group of personal cards-->
       </div>
     </main>
+
+    <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+
+      <!--Call to action-->
+      <div class="pt-4">
+        <a class="btn btn-outline-white wow tada" target="_blank" data-toggle="modal" data-target="#exampleModalCenter"
+          role="button">Download TeamMusic Android
+          <i class="fas fa-download ml-2"></i>
+        </a>
+      </div>
+      <!--/.Call to action-->
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="false">
+
+        <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title black-text" id="exampleModalLongTitle">Download TeamMusic APK</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body black-text" id="txt">
+            </div>
+            <div class="modal-footer">
+              <a type="button" class="btn btn-secondary btn-md" data-dismiss="modal">Close</a>
+              <a id="tmmusicdownload" target="_blank" class="btn btn-primary btn-md">Download Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <hr class="my-4">
+
+      <!-- Social icons -->
+      <div class="pb-4">
+
+        <a href="https://chat.whatsapp.com/C9hrSDsoQJLDh3o9wsZMk4" target="_blank">
+          <i class="fab fa-whatsapp mr-3"></i>
+        </a>
+
+        <a href="https://discordapp.com/invite/ERpx6dv" target="_blank">
+          <i class="fab fa-discord mr-3"></i>
+        </a>
+
+      </div>
+      <!-- Social icons -->
+
+      <!--Copyright-->
+      <div class="footer-copyright py-3">
+        © 2020 Copyright: TeamMusic Developers | Website Powered By MDB and Firebase Hosting
+      </div>
+      <!--/.Copyright-->
+
+    </footer>
+
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="js/popper.min.js"></script>
