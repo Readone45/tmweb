@@ -157,7 +157,7 @@ function playMusic(num) {
     console.log(json);
     musicname.innerHTML = json[num].name;
     console.log(musicname);
-    document.querySelector("b-navbar").setAttribute("style", "");
+    document.getElementById("b-navbar").setAttribute("style", "");
     botNavBar.innerHTML += '<audio preload="none" controls id="audio" style="display: none;"> <source src="' + json[num].url + '" type="audio/mpeg"/></audio>';
     startplayer();
     play_aud();
