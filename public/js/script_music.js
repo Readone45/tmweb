@@ -15,6 +15,19 @@ var awal,akhir,total = 0;
 var json = {};
 var popmusik = {};
 
+var names = {};
+
+// Fetch UID Usernames Datas
+fetch('https://teammusic-tw.firebaseio.com/profile/text.json')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  names = data;
+  console.log(data)
+});
+
+// Fetch musics data from server
 fetch('https://teammusic-tw.firebaseio.com/upload/text.json')
 .then((response) => {
     return response.json();
@@ -56,9 +69,9 @@ function card(img, view, uid, name, total, url){
     tes.setAttribute('class','col-md-4 wow fadeInLeft');
    tes.innerHTML =  '<div class="card-group" id="grp"><div class="card card-personal mb-4 wow fadeIn" style="width:22rem;">'+
       '<!--Card image-->'+
-      '<div class="view">'+
+      '<div class="view overlay zoom">'+
         '<img class="card-img-top" src="' + img + '" alt="Card image cap">'+
-        '<a href="#!">'+
+        '<a onclick="playMusic(' + total + ')">'+
           '<div class="mask rgba-white-slight"></div>'+
         '</a>'+
       '</div>'+
@@ -73,7 +86,7 @@ function card(img, view, uid, name, total, url){
       '<!--Card content-->'+
       '<div class="card-body">'+
        ' <!--Title-->'+
-        '<a>'+
+        '<a onclick="playMusic(' + total + ')">'+
           '<h4 class="card-title">' + name + '</h4>'+
         '</a>'+
       '</div>'+
@@ -84,7 +97,7 @@ function card(img, view, uid, name, total, url){
           '<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-comments pr-1"></i>3</a></li>'+
 
           '<li class="list-inline-item"><a  class="white-text"><i class="fas fa-heart pr-1"> </i>3</a></li>'+
-          '<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-user pr-1"></i>' + uid + '</a></li>'+
+          '<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-user pr-1"></i>' + names[uid].username + '</a></li>'+
         '</ul>'+
       '</div>'+
       '<!--Card content-->'+
@@ -115,11 +128,12 @@ function loadMore(){
 // Getting elements using querySelector()
 var musicname = document.querySelector("#mscname");
 var prog = document.querySelector("progress_");
+var currentMusic;
 
 function stopDel() {
   // Cancel button
   // Set bottom navbar invisible and stopping the audio
-  botNavBar.setAttribute("style", "display: none;");
+  document.querySelector("b-navbar").setAttribute("style", "display: none;");
   stop_aud();
 
   // Then delete the audio tag using document.getElementById('').remove()
@@ -129,9 +143,11 @@ function stopDel() {
 // This fuction will be triggered when the play button pressed (Inside the card)
 // Function call at : Line 60
 function playMusic(num) {
+  currentMusic = num;
   // Remove if there is player that is playing audio
   try {
     document.getElementById("audio").remove();
+    document.getElementById("mscname").innerHTML = json[num].name;
   }
   catch(err) {
     // This will happened if theres no player is playing
@@ -141,7 +157,7 @@ function playMusic(num) {
     console.log(json);
     musicname.innerHTML = json[num].name;
     console.log(musicname);
-    botNavBar.setAttribute("style", "");
+    document.querySelector("b-navbar").setAttribute("style", "");
     botNavBar.innerHTML += '<audio preload="none" controls id="audio" style="display: none;"> <source src="' + json[num].url + '" type="audio/mpeg"/></audio>';
     startplayer();
     play_aud();
@@ -160,6 +176,7 @@ function setloop() {
 // This code I copy pasted from online :v
 // window.onload = function() { document.getElementById("openModalLoading").remove(); };
 var player;
+var progressbar = document.querySelector("prog");
 
 function startplayer()
 {
@@ -173,6 +190,18 @@ function startplayer()
   player.ondurationchange = function() {
     console.log("Audio can be played!");
     document.getElementById("openModalLoading").remove();
+    document.getElementById("prog").setAttribute("aria-valuemax", player.duration);
+    // player.currentTime
+    // player.duration
+  }
+  player.ontimeupdate = function() {
+    document.getElementById("prog").setAttribute("aria-valuenow", player.currentTime);
+    document.getElementById("prog").setAttribute("style", "width :" + parseInt((player.currentTime / player.duration)*100) + "%;");
+  }
+  player.onended = function() {
+    if(!player.loop){
+      playMusic(currentMusic + 1);
+    }
   }
 }
 
