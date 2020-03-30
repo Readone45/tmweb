@@ -15,6 +15,19 @@ var awal,akhir,total = 0;
 var json = {};
 var popmusik = {};
 
+var names = {};
+
+// Fetch UID Usernames Datas
+fetch('https://teammusic-tw.firebaseio.com/profile/text.json')
+.then((response) => {
+  return response.json();
+})
+.then((data) => {
+  names = data;
+  console.log(data)
+});
+
+// Fetch musics data from server
 fetch('https://teammusic-tw.firebaseio.com/upload/text.json')
 .then((response) => {
     return response.json();
@@ -84,7 +97,7 @@ function card(img, view, uid, name, total, url){
           '<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-comments pr-1"></i>3</a></li>'+
 
           '<li class="list-inline-item"><a  class="white-text"><i class="fas fa-heart pr-1"> </i>3</a></li>'+
-          '<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-user pr-1"></i>' + uid + '</a></li>'+
+          '<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fas fa-user pr-1"></i>' + names[uid].username + '</a></li>'+
         '</ul>'+
       '</div>'+
       '<!--Card content-->'+
@@ -120,7 +133,7 @@ var currentMusic;
 function stopDel() {
   // Cancel button
   // Set bottom navbar invisible and stopping the audio
-  botNavBar.setAttribute("style", "display: none;");
+  document.querySelector("b-navbar").setAttribute("style", "display: none;");
   stop_aud();
 
   // Then delete the audio tag using document.getElementById('').remove()
@@ -144,7 +157,7 @@ function playMusic(num) {
     console.log(json);
     musicname.innerHTML = json[num].name;
     console.log(musicname);
-    botNavBar.setAttribute("style", "");
+    document.querySelector("b-navbar").setAttribute("style", "");
     botNavBar.innerHTML += '<audio preload="none" controls id="audio" style="display: none;"> <source src="' + json[num].url + '" type="audio/mpeg"/></audio>';
     startplayer();
     play_aud();
